@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies App</title>
+</head>
+<body>
+    <h1>MOVIES APP</h1>
+<link rel="stylesheet" href="./movies.css">
+<div class="container">
+    <div class="upper_section">
+        <input type="text" class="search" placeholder="Search the movie....">
+        <button class="btn">Search</button>
+    </div>
+<div class="lower_section">
+    <div class="title_of_movie"></div>
+    <div class="description_of_movie">
+        <img src="./pexels-lazybird-1260727.jpg" class="img_section" width="600px" height="300px">
+        <div class="lower_section_movies">
+            <div class="movie_part">Year: <span class="yor"></span></div>
+            <div class="movie_part">Country: <span class="country"></span></div>
+            <div class="movie_part">Language: <span class="language"></span></div>
+            <div class="movie_part">Imdb Ratings: <span class="ratings"></span></div>
+            <div class="movie_part">Director: <span class="director"></span></div>
+            <div class="movie_part">Actor: <span class="actor"></span></div>
+            <div class="movie_part">Writer: <span class="writers"></span></div>
+            <div class="movie_part">Awards: <span class="awards"></span></div>
+            <div class="movie_part">Genre: <span class="genre"></span></div>
+        </div>
+    </div>
+</div>
+</div>
+    <script>
+       let search= document.querySelector('.search');
+
+        document.querySelector('.btn').addEventListener('click',()=>{
+            if(search.value=='')
+            {
+                console.log('fucked up')
+            }
+            else{
+                async function movie()
+            {
+                try{
+                    let response=await fetch(`http://www.omdbapi.com/?apikey=8d60861d&t=${search.value}`);
+            let data=await response.json();
+            console.log(data);
+function capitalizing(item)
+{
+return item.replace(/\b\w/g,chard=>chard.toUpperCase());
+}
+            document.querySelector('.title_of_movie').innerHTML=capitalizing(search.value);
+            document.querySelector('.yor').innerHTML=data.Year || "N/A";
+            document.querySelector('.country').innerHTML=data.Country || "N/A";
+            document.querySelector('.language').innerHTML=data.Language || "N/A";
+            document.querySelector('.img_section').src=data.Poster || "N/A";
+            document.querySelector('.ratings').innerHTML=data.Ratings[0].Value || "N/A";
+            document.querySelector('.director').innerHTML=data.Director || "N/A";
+            document.querySelector('.actor').innerHTML=data.Actors || "N/A";
+            document.querySelector('.writers').innerHTML=data.Writer || "N/A";
+            document.querySelector('.awards').innerHTML=data.Awards || "N/A";
+            document.querySelector('.genre').innerHTML=data.Genre || "N/A";
+          
+            console.log(search.value);
+                }
+        catch(error){console.log(error);
+        }
+
+    }
+    movie();
+            }
+    
+});
+    </script>
+</body>
+</html>
